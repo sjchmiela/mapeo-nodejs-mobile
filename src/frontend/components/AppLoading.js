@@ -10,7 +10,9 @@ import {
   Text,
   ActivityIndicator
 } from "react-native";
+
 import * as status from "../../constants/server";
+import ServerStatus from "./ServerStatus";
 
 const log = debug("mapeo:AppLoading");
 
@@ -87,61 +89,15 @@ export default class AppLoading extends React.Component<Props, State> {
   }
 
   render() {
-    if (this.state.didTimeout) return <ServerTimeout />;
+    if (this.state.didTimeout) return <ServerStatus variant="timeout" />;
     switch (this.state.serverStatus) {
       case status.LISTENING:
         SplashScreen.hide();
         return this.props.children;
       case status.ERROR:
-        return <ServerError />;
+        return <ServerStatus variant="error" />;
       default:
-        return <Waiting />;
+        return <ServerStatus variant="waiting" />;
     }
   }
 }
-
-const Waiting = () => (
-  <View style={styles.container}>
-    <ActivityIndicator size="large" color="#0000ff" />
-  </View>
-);
-
-const ServerError = () => (
-  <View style={styles.container}>
-    <Text style={styles.notice}>
-      Oh dear, something is broken in the Mapeo database. You can try
-      force-restarting the app, but there may be something that needs fixing.
-      Really sorry about this, making apps is hard.
-    </Text>
-  </View>
-);
-
-const ServerTimeout = () => (
-  <View style={styles.container}>
-    <Text style={styles.notice}>Something is up with the Mapeo database</Text>
-    <ActivityIndicator size="large" color="#0000ff" />
-    <Text style={styles.description}>
-      If you continue to see this message you may need to force-restart Mapeo
-    </Text>
-  </View>
-);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    padding: 20
-  },
-  notice: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 20
-  },
-  description: {
-    textAlign: "center",
-    color: "#333333",
-    margin: 20
-  }
-});
