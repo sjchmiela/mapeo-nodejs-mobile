@@ -8,6 +8,7 @@
 		"flow": "flow"
 	},
 	"dependencies": {
+		"debug": "^4.1.1",
 		"flow-bin": "^0.86.0",
 		"nodejs-mobile-react-native": "0.3.2",
 		"react": "16.6.3",

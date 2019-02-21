@@ -23,51 +23,52 @@ const path = require("path");
 const level = require("level");
 
 const ServerStatus = require("./status");
+const constants = require("../constants");
 
 const PORT = 9080;
 const status = new ServerStatus();
 status.startHeartbeat();
 
 process.on("uncaughtException", function(err) {
-	status.setState(ServerStatus.ERROR);
+  status.setState(constants.ERROR);
 });
 
 const db = level(path.join(os.homedir(), "db"), { valueEncoding: "json" });
 
 const server = http.createServer((req, res) => {
-	db.get("test", function(err, value) {
-		if (err) console.log("db get error:", err);
-		res.write(JSON.stringify(value, null, 2));
-		res.end();
-	});
+  db.get("test", function(err, value) {
+    if (err) console.log("db get error:", err);
+    res.write(JSON.stringify(value, null, 2));
+    res.end();
+  });
 });
 
 rnBridge.channel.on("message", msg => {
-	rnBridge.channel.send(msg);
+  rnBridge.channel.send(msg);
 });
 
 // Close the server and pause heartbeat when in background
 rnBridge.app.on("pause", pauseLock => {
-	status.pauseHeartbeat();
-	status.setState(ServerStatus.CLOSING);
-	server.close(() => {
-		status.setState(ServerStatus.CLOSED);
-		pauseLock.release();
-	});
+  status.pauseHeartbeat();
+  status.setState(constants.CLOSING);
+  server.close(() => {
+    status.setState(constants.CLOSED);
+    pauseLock.release();
+  });
 });
 
 // Start things up again when app is back in foreground
 rnBridge.app.on("resume", () => {
-	status.setState(ServerStatus.STARTING);
-	status.startHeartbeat();
-	start();
+  status.setState(constants.STARTING);
+  status.startHeartbeat();
+  start();
 });
 
 db.put("test", { foo: "bar", num: 1 }, function(err) {
-	if (err) console.log("db put error:", err);
-	start();
+  if (err) console.log("db put error:", err);
+  start();
 });
 
 function start() {
-	server.listen(PORT, () => status.setState(ServerStatus.LISTENING));
+  server.listen(PORT, () => status.setState(constants.LISTENING));
 }
