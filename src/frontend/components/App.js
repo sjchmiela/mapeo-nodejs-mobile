@@ -13,6 +13,7 @@ import debug from "debug";
 
 import ErrorBoundary from "./ErrorBoundary";
 import AppLoading from "./AppLoading";
+import LocationScreen from "./LocationScreen";
 
 // Turn on logging if in debug mode
 if (__DEV__) debug.enable("*");
@@ -29,11 +30,7 @@ type Props = {};
 const App = () => (
   <ErrorBoundary>
     <AppLoading>
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions} />
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <LocationScreen />
     </AppLoading>
   </ErrorBoundary>
 );

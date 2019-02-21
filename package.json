@@ -10,7 +10,9 @@
     "docz:build": "docz build --native"
   },
   "dependencies": {
+    "@unimodules/react-native-platform": "^0.1.17",
     "debug": "^4.1.1",
+    "expo-location": "^2.0.1",
     "flow-bin": "^0.86.0",
     "nodejs-mobile-react-native": "0.3.2",
     "react": "16.6.3",
