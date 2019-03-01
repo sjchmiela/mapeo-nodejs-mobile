@@ -20,6 +20,7 @@ import expo.modules.constants.ConstantsPackage;
 import expo.modules.filesystem.FileSystemPackage;
 import expo.modules.permissions.PermissionsPackage;
 import expo.modules.location.LocationPackage;
+import expo.modules.expo.modules.camera.CameraPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
     new ConstantsPackage(),
     new PermissionsPackage(),
     new FileSystemPackage(),
-    new LocationPackage()
+    new LocationPackage(),
+    new CameraPackage()
   ), Arrays.<SingletonModule>asList());
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
