@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 import LocationScreen from "./LocationScreen";
+import Camera from "./Camera";
 
 class SettingsScreen extends React.Component {
   render() {
@@ -15,7 +16,7 @@ class SettingsScreen extends React.Component {
 
 const TabNavigator = createBottomTabNavigator({
   Home: LocationScreen,
-  Settings: SettingsScreen
+  Settings: Camera
 });
 
 export default createAppContainer(TabNavigator);

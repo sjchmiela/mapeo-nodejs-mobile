@@ -65,7 +65,7 @@ export default class AppLoading extends React.Component<Props, State> {
   }
 
   handleStatusChange = (serverStatus: string) => {
-    log("status change", serverStatus);
+    // log("status change", serverStatus);
     // If we get a heartbeat, restart the timeout timer
     if (serverStatus === status.LISTENING) this.restartTimeout();
     // No unnecessary re-renders
